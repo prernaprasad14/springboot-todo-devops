@@ -1,6 +1,7 @@
 package com.prernaprasad14.todo.services;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -14,6 +15,14 @@ public class GlobalExceptionHandler {
             IllegalArgumentException e) {
 
         return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    //MethodArgumentNotValidException, using Spring @NotBlank and @Valid to validate input data fields 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleMethodArgumentNotValidException(
+            MethodArgumentNotValidException e) {
+
+        return ResponseEntity.badRequest().body("Field '" +  e.getFieldError().getField() + "': " +  e.getFieldError().getDefaultMessage());
     }
 
 }

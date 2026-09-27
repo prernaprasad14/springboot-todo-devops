@@ -1,6 +1,7 @@
 package com.prernaprasad14.todo.models;
-
+import jakarta.validation.constraints.NotBlank;
 public class Todo {
+    @NotBlank
     private String title;
     private String description;
 
